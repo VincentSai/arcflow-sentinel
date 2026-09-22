@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ArcFlow Sentinel | Circle Arc Mainnet & AI Agent Micro-Payment Portal</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="app-container">
+    <!-- 顶部导航 -->
+    <header class="header">
+      <div class="brand">
+        <div class="logo-icon">⚡</div>
+        <div>
+          <h1 class="logo-title">ArcFlow Sentinel</h1>
+          <p class="logo-sub">Circle Arc Mainnet · Agentic Economy Portal</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <div class="network-badge" id="networkBadge">
+          <span class="status-dot"></span>
+          <span id="networkName">Checking Network...</span>
+        </div>
+        <button id="btnConnect" class="btn btn-primary">Connect Wallet</button>
+      </div>
+    </header>
+
+    <!-- 顶栏广播 / 参赛标头 -->
+    <div class="banner">
+      <span>🚀 Built for <strong>Circle Arc Mainnet</strong> & <strong>DoraHacks Arc Microgrants</strong> · Native USDC Gas Enabled</span>
+    </div>
+
+    <!-- 核心面板网格 -->
+    <main class="grid-main">
+      <!-- 模块 1: Arc 实时节点探针 -->
+      <section class="card">
+        <div class="card-header">
+          <h2 class="card-title">📡 Arc Mainnet Sentinel Probe</h2>
+          <button id="btnPing" class="btn btn-sm">Ping RPC</button>
+        </div>
+        <div class="probe-stats">
+          <div class="stat-box">
+            <span class="stat-label">RPC Endpoint</span>
+            <span class="stat-value text-mono" id="rpcEndpoint">https://rpc.mainnet.arc.io</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-label">Chain ID</span>
+            <span class="stat-value text-mono">5042 (0x13B2)</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-label">Native Gas Currency</span>
+            <span class="stat-value badge-usdc">USDC</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-label">Latency / Response</span>
+            <span class="stat-value text-mono text-success" id="rpcLatency">Checking...</span>
+          </div>
+        </div>
+
+        <div class="action-row">
+          <button id="btnAddNetwork" class="btn btn-secondary">➕ Add Arc Mainnet to Wallet</button>
+          <a href="https://explorer.arc.io" target="_blank" rel="noopener" class="btn btn-outline">🔍 Arc Explorer</a>
+        </div>
+      </section>
+
+      <!-- 模块 2: Agent 账户与原生 USDC 金库看板 -->
+      <section class="card">
+        <div class="card-header">
+          <h2 class="card-title">💼 Agentic Treasury & Wallet</h2>
+          <span class="tag">Live On-Chain</span>
+        </div>
+        <div class="wallet-details">
+          <div class="info-group">
+            <label>Connected Account</label>
+            <p id="userAddress" class="text-mono">Not Connected</p>
+          </div>
+          <div class="info-group">
+            <label>Official Treasury Safe (Audited)</label>
+            <p class="text-mono text-gold">0xB16989670e568eF9D1b1bB364d3803Df41DD0a3e</p>
+          </div>
+          <div class="info-group">
+            <label>Native Balance (USDC Gas)</label>
+            <p id="userBalance" class="balance-display">0.0000 USDC</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 模块 3: AI Agent 微支付中继器 (Micro-Payment Gateway) -->
+      <section class="card card-wide">
+        <div class="card-header">
+          <h2 class="card-title">⚡ Autonomous Agent Micro-Payment & Relay</h2>
+          <span class="badge-accent">Smart Contract Enabled</span>
+        </div>
+        <p class="card-desc">
+          Transfer native USDC micro-payments to autonomous AI agents or treasury on Arc Mainnet with sub-second finality and near-zero gas.
+        </p>
+
+        <div class="relay-form">
+          <div class="form-row">
+            <div class="form-group flex-2">
+              <label for="inputRecipient">Recipient Agent / Contract Address</label>
+              <input type="text" id="inputRecipient" class="input-field" value="0xB16989670e568eF9D1b1bB364d3803Df41DD0a3e">
+            </div>
+            <div class="form-group flex-1">
+              <label for="inputAmount">Amount (Native USDC)</label>
+              <input type="number" id="inputAmount" class="input-field" value="0.5" step="0.01" min="0.001">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="inputMemo">Task Specification / Intent Memo</label>
+            <input type="text" id="inputMemo" class="input-field" placeholder="e.g. Code Review Bounty #12 / Audit Scan Verification">
+          </div>
+
+          <div class="form-actions">
+            <button id="btnSendTip" class="btn btn-primary btn-large">🚀 Dispatch Micro-Payment</button>
+            <button id="btnSimulate" class="btn btn-outline">🧪 Simulate Route</button>
+          </div>
+          <div id="txStatus" class="tx-feedback hidden"></div>
+        </div>
+      </section>
+
+      <!-- 模块 4: Arc 技术架构与开源规范 -->
+      <section class="card card-wide">
+        <div class="card-header">
+          <h2 class="card-title">📖 Arc Architecture & Verification</h2>
+        </div>
+        <div class="arch-content">
+          <div class="arch-item">
+            <h3>🔹 Native USDC Gas Layer</h3>
+            <p>Unlike traditional EVM networks where gas requires ETH or native volatile tokens, Circle Arc uses USDC natively, ensuring fixed, predictable operational budgets for AI Agents.</p>
+          </div>
+          <div class="arch-item">
+            <h3>🔹 Smart Contract Relay</h3>
+            <p>Integrated with <code>ArcAgentRelay.sol</code> for task creation, escrow-free direct tipping, and programmatic bounty settlements.</p>
+          </div>
+          <div class="arch-item">
+            <h3>🔹 Verified Open Source</h3>
+            <p>All contracts and portal client code are open-source under MIT License. Ready for Circle Arc mainnet ecosystem deployment.</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+      <p>ArcFlow Sentinel · Open Source Web3 Agent Infrastructure · Powered by Circle Arc & DoraHacks BUIDL</p>
+      <div class="footer-links">
+        <a href="https://github.com/VincentSai/arcflow-sentinel" target="_blank" rel="noopener">GitHub Repo</a>
+        <a href="https://docs.arc.io" target="_blank" rel="noopener">Arc Docs</a>
+        <a href="https://dorahacks.io" target="_blank" rel="noopener">DoraHacks Grants</a>
+      </div>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
