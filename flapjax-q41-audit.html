@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FlapJax 14-Day Buyback Census (10-09..10-21) - Public On-Chain Forensic Audit</title>
+  <style>
+    :root {
+      --bg: #0b0f19;
+      --card-bg: #111827;
+      --border: #1f2937;
+      --accent: #f59e0b;
+      --accent-hover: #d97706;
+      --text: #f3f4f6;
+      --text-muted: #9ca3af;
+      --success: #10b981;
+      --cyan: #06b6d4;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding: 2rem 1rem;
+    }
+    .container { max-width: 1200px; margin: 0 auto; }
+    header {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      border-top: 4px solid var(--accent);
+    }
+    h1 { font-size: 1.8rem; margin-bottom: 0.75rem; color: #fff; }
+    .badge {
+      display: inline-block;
+      padding: 0.25rem 0.6rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      border-radius: 9999px;
+      background: rgba(245, 158, 11, 0.15);
+      color: var(--accent);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      margin-right: 0.5rem;
+    }
+    .badge-success {
+      background: rgba(16, 185, 129, 0.15);
+      color: var(--success);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1rem;
+      margin-top: 1.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.9rem;
+    }
+    .meta-item span { color: var(--text-muted); display: block; font-size: 0.8rem; }
+    .meta-item strong { color: var(--text); word-break: break-all; }
+    
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .stat-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.25rem;
+      text-align: center;
+    }
+    .stat-val { font-size: 1.5rem; font-weight: 700; color: var(--accent); margin-bottom: 0.25rem; }
+    .stat-label { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; }
+
+    section {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.75rem;
+      margin-bottom: 2rem;
+    }
+    h2 { font-size: 1.3rem; margin-bottom: 1.25rem; color: #fff; border-bottom: 1px solid var(--border); padding-bottom: 0.5rem; }
+    p, ul { color: #d1d5db; font-size: 0.95rem; margin-bottom: 1rem; }
+    ul { padding-left: 1.5rem; }
+    li { margin-bottom: 0.5rem; }
+    
+    .table-container { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.85rem; text-align: left; }
+    th { background: #1e293b; color: #94a3b8; padding: 0.75rem 0.5rem; font-weight: 600; }
+    td { padding: 0.75rem 0.5rem; border-top: 1px solid var(--border); }
+    tr:hover { background: rgba(255, 255, 255, 0.02); }
+    a { color: var(--cyan); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    code { font-family: monospace; background: #1e293b; padding: 0.15rem 0.35rem; border-radius: 4px; color: #fbbf24; }
+    
+    .formula-box {
+      background: #0f172a;
+      border: 1px solid #334155;
+      border-radius: 8px;
+      padding: 1rem;
+      font-family: monospace;
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
+    }
+    footer { text-align: center; font-size: 0.8rem; color: var(--text-muted); padding: 1.5rem 0; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div style="margin-bottom: 0.75rem;">
+        <span class="badge">Forensic Audit</span>
+        <span class="badge badge-success">First-Timer Verified</span>
+        <span class="badge">100% On-Chain Verified</span>
+      </div>
+      <h1>FlapJax 14-Day Buyback Census (10-09..10-21)</h1>
+      <p style="color: var(--text-muted);">Independent On-Chain Receipt Reconciliation & Announced Rule Verification</p>
+      
+      <div class="meta-grid">
+        <div class="meta-item">
+          <span>Auditor Handle</span>
+          <strong>@VincentSai (ArcFlow Sentinel Network)</strong>
+        </div>
+        <div class="meta-item">
+          <span>BSC Bound Wallet (0x...)</span>
+          <strong><code>0xB16989670e568eF9D1b1bB364d3803Df41DD0a3e</code></strong>
+        </div>
+        <div class="meta-item">
+          <span>First-Timer Eligibility</span>
+          <strong><span class="badge badge-success">first=yes</span> (0 prior treasury payouts)</strong>
+        </div>
+        <div class="meta-item">
+          <span>Treasury Address (BSC)</span>
+          <strong><code>0x7C34E9e21eE28A49Ff0b84B61774119E6633359f</code></strong>
+        </div>
+        <div class="meta-item">
+          <span>Pool Address (PancakeSwap V3 1%)</span>
+          <strong><code>0xcA93EC685b8623688E6B236f9068034B298c2150</code></strong>
+        </div>
+        <div class="meta-item">
+          <span>Verification Timestamp</span>
+          <strong>2026-10-23T10:30:00Z</strong>
+        </div>
+      </div>
+    </header>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-val">12</div>
+        <div class="stat-label">Buyback Swaps Mined</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val">0.1200 BNB</div>
+        <div class="stat-label">Total BNB Spent</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val">284,418,120.15</div>
+        <div class="stat-label">Total FLAPJAX Acquired</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val">4.21914 × 10⁻¹⁰</div>
+        <div class="stat-label">VWAP (BNB / FJ)</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val">0</div>
+        <div class="stat-label">Reverse Sales to Pool</div>
+      </div>
+    </div>
+
+    <!-- Section 1 -->
+    <section>
+      <h2>1. Executive Summary & Verification Census</h2>
+      <p>
+        On 2026-10-08, FlapJax announced a 14-day daily buyback program from treasury <code>0x7C34E9e21eE28A49Ff0b84B61774119E6633359f</code> across the PancakeSwap V3 FLAPJAX/WBNB 1% fee pool (<code>0xcA93EC685b8623688E6B236f9068034B298c2150</code>).
+      </p>
+      <p>
+        Across the 13 completed program days evaluated (2026-10-09 00:00:00 UTC through 2026-10-21 23:59:59 UTC, corresponding to calendar days in COT / UTC-5):
+      </p>
+      <ul>
+        <li><strong>Total Buyback Swaps Mined:</strong> Exactly 12 buyback swap transactions.</li>
+        <li><strong>Cumulative BNB Outflow:</strong> 0.12000000 BNB (exactly 0.01000000 BNB per buy across 12 buys).</li>
+        <li><strong>Cumulative FLAPJAX Inflow:</strong> 284,418,120.150882 FLAPJAX directly credited to the treasury.</li>
+        <li><strong>Volume-Weighted Average Price (VWAP):</strong> 4.219140466027 × 10⁻¹⁰ BNB per FLAPJAX.</li>
+        <li><strong>Program Cadence:</strong> 12 program days executed with an active buy (10-09, 10-10, 10-11, 10-12, 10-13, 10-14, 10-16, 10-17, 10-18, 10-19, 10-20, 10-21 in COT).</li>
+        <li><strong>Missed Program Days:</strong> Exactly 1 day missed (2026-10-15 COT had 0 buys).</li>
+        <li><strong>Reverse Sales Check:</strong> 0 sales. The treasury never transferred or sold FLAPJAX back into the liquidity pool during this entire window.</li>
+      </ul>
+    </section>
+
+    <!-- Section 2 -->
+    <section>
+      <h2>2. Methodology & Mathematical Price Formulas</h2>
+      <p>Both tokens in the PancakeSwap V3 pool feature exactly 18 decimals:</p>
+      <ul>
+        <li><strong>Token 0 (FLAPJAX):</strong> <code>0x90c8889f428F9Ebb77BB8f15CAD3a50a9aC680df</code> (18 decimals)</li>
+        <li><strong>Token 1 (WBNB):</strong> <code>0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c</code> (18 decimals)</li>
+      </ul>
+      
+      <div class="formula-box">
+        <strong>1. Effective Realized Swap Price Formula:</strong><br>
+        Price_effective = &Delta;BNB_in / &Delta;FLAPJAX_out = (0.01 &times; 10^18) / rawFLAPJAXTransferWei<br>
+        <em>(Expressed in BNB per FLAPJAX)</em>
+      </div>
+
+      <div class="formula-box">
+        <strong>2. Pre-Swap Pool Price Formula (at Block N - 1):</strong><br>
+        Read <code>slot0().sqrtPriceX96</code> from the pool contract at block <code>N - 1</code>.<br>
+        Because Decimals(FLAPJAX) == Decimals(WBNB) == 18, the decimal adjustment factor (10^(18-18) = 1) cancels out:<br>
+        Price_pool = (sqrtPriceX96 / 2^96)^2  [WBNB per FLAPJAX]
+      </div>
+    </section>
+
+    <!-- Section 3 -->
+    <section>
+      <h2>3. Complete Itemized Ledger of 12 Buyback Swaps (10-09 to 10-21)</h2>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Tx Hash</th>
+              <th>Block</th>
+              <th>Time (UTC)</th>
+              <th>Time (COT)</th>
+              <th>BNB In</th>
+              <th>FLAPJAX Received</th>
+              <th>Effective Price (BNB/FJ)</th>
+              <th>Pre-Swap Price (Block-1)</th>
+              <th>Post-Buy Bal</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td><a href="https://bscscan.com/tx/0xbeefabdc89f9148f9daaef6082d34a60dc5b4b612972ca0fd39d6bd4eb03b4b0" target="_blank">0xbeefabdc...</a></td>
+              <td>126684151</td>
+              <td>10-09 18:30:53</td>
+              <td>10-09 13:30:53</td>
+              <td>0.01 BNB</td>
+              <td>24,052,995.308272</td>
+              <td>4.157486e-10</td>
+              <td>4.109653e-10</td>
+              <td>0.176853 BNB</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td><a href="https://bscscan.com/tx/0x8ce8e8578da26f8c7acb0f44c6ca0d0b8dcba868cafe2d729bb48562863f2d62" target="_blank">0x8ce8e857...</a></td>
+              <td>126875701</td>
+              <td>10-10 18:27:56</td>
+              <td>10-10 13:27:56</td>
+              <td>0.01 BNB</td>
+              <td>23,979,958.557396</td>
+              <td>4.170149e-10</td>
+              <td>4.122179e-10</td>
+              <td>0.154697 BNB</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td><a href="https://bscscan.com/tx/0x82d01172ae26f1c86287643e123af1675ca5c18b984b7740c1a0c1647d2801eb" target="_blank">0x82d01172...</a></td>
+              <td>127067713</td>
+              <td>10-11 18:30:35</td>
+              <td>10-11 13:30:35</td>
+              <td>0.01 BNB</td>
+              <td>23,907,253.965590</td>
+              <td>4.182831e-10</td>
+              <td>4.134725e-10</td>
+              <td>0.144640 BNB</td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td><a href="https://bscscan.com/tx/0x9afdc96e3ca876b5b617a26ba5105012ed8c33e805c77b1616bf48c198d5cbf1" target="_blank">0x9afdc96e...</a></td>
+              <td>127261246</td>
+              <td>10-12 18:46:27</td>
+              <td>10-12 13:46:27</td>
+              <td>0.01 BNB</td>
+              <td>23,834,879.521764</td>
+              <td>4.195532e-10</td>
+              <td>4.147289e-10</td>
+              <td>0.132607 BNB</td>
+            </tr>
+            <tr>
+              <td>5</td>
+              <td><a href="https://bscscan.com/tx/0xc94de373d1fb00093431224a97475b3b2b48b9a4962d15acbe9d9c5c016d720c" target="_blank">0xc94de373...</a></td>
+              <td>127452454</td>
+              <td>10-13 18:41:15</td>
+              <td>10-13 13:41:15</td>
+              <td>0.01 BNB</td>
+              <td>23,762,833.230024</td>
+              <td>4.208252e-10</td>
+              <td>4.159873e-10</td>
+              <td>0.118265 BNB</td>
+            </tr>
+            <tr>
+              <td>6</td>
+              <td><a href="https://bscscan.com/tx/0x172349c64ed3c45663650049f9e2ad3d763b1243c5c849b7d66f144f221d3186" target="_blank">0x172349c6...</a></td>
+              <td>127643212</td>
+              <td>10-14 18:32:29</td>
+              <td>10-14 13:32:29</td>
+              <td>0.01 BNB</td>
+              <td>23,691,113.109537</td>
+              <td>4.220992e-10</td>
+              <td>4.172476e-10</td>
+              <td>0.106948 BNB</td>
+            </tr>
+            <tr>
+              <td>7</td>
+              <td><a href="https://bscscan.com/tx/0xc999000f16f326e8868fe37f83871219be1a63f98043b0aef9ee57f469232156" target="_blank">0xc999000f...</a></td>
+              <td>128086717</td>
+              <td>10-17 02:00:51</td>
+              <td>10-16 21:00:51</td>
+              <td>0.01 BNB</td>
+              <td>23,669,235.465921</td>
+              <td>4.224894e-10</td>
+              <td>4.176336e-10</td>
+              <td>0.094214 BNB</td>
+            </tr>
+            <tr>
+              <td>8</td>
+              <td><a href="https://bscscan.com/tx/0x6ec66780e0518da7c3c8b55d13b66d57400046f89ebe9df479c3c878f7b3311f" target="_blank">0x6ec66780...</a></td>
+              <td>128178495</td>
+              <td>10-17 13:29:27</td>
+              <td>10-17 08:29:27</td>
+              <td>0.01 BNB</td>
+              <td>23,597,938.349723</td>
+              <td>4.237658e-10</td>
+              <td>4.188963e-10</td>
+              <td>0.084174 BNB</td>
+            </tr>
+            <tr>
+              <td>9</td>
+              <td><a href="https://bscscan.com/tx/0x05a9acf81b0eae4b7ff9a12168aead25964b6b2c0a16d3d1e667b7db6f17ad99" target="_blank">0x05a9acf8...</a></td>
+              <td>128370339</td>
+              <td>10-18 13:28:39</td>
+              <td>10-18 08:28:39</td>
+              <td>0.01 BNB</td>
+              <td>23,506,585.156697</td>
+              <td>4.254127e-10</td>
+              <td>4.205255e-10</td>
+              <td>0.074090 BNB</td>
+            </tr>
+            <tr>
+              <td>10</td>
+              <td><a href="https://bscscan.com/tx/0xd5210869e5cec642146b3f39590647b313d102f70a51b7c7bbf0c287ceff095d" target="_blank">0xd5210869...</a></td>
+              <td>128530306</td>
+              <td>10-19 09:28:47</td>
+              <td>10-19 04:28:47</td>
+              <td>0.01 BNB</td>
+              <td>23,545,510.421021</td>
+              <td>4.247094e-10</td>
+              <td>4.198298e-10</td>
+              <td>0.061680 BNB</td>
+            </tr>
+            <tr>
+              <td>11</td>
+              <td><a href="https://bscscan.com/tx/0xe9ea4a165aae8eb4228ef073a93c4c1983894104a426e9f5d64b0214cfde3369" target="_blank">0xe9ea4a16...</a></td>
+              <td>128754269</td>
+              <td>10-20 13:29:06</td>
+              <td>10-20 08:29:06</td>
+              <td>0.01 BNB</td>
+              <td>23,439,984.330262</td>
+              <td>4.266214e-10</td>
+              <td>4.217212e-10</td>
+              <td>0.046231 BNB</td>
+            </tr>
+            <tr>
+              <td>12</td>
+              <td><a href="https://bscscan.com/tx/0xbf984ef91d8df34f75998aa40bb539db84085cc1f1654cd5106de7e3db0be48f" target="_blank">0xbf984ef9...</a></td>
+              <td>128946201</td>
+              <td>10-21 13:29:29</td>
+              <td>10-21 08:29:29</td>
+              <td>0.01 BNB</td>
+              <td>23,429,832.734675</td>
+              <td>4.268063e-10</td>
+              <td>4.219041e-10</td>
+              <td>0.036159 BNB</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Section 4 -->
+    <section>
+      <h2>4. Announced Rule Verification & Compliance Matrix</h2>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Announced Rule</th>
+              <th>Specification</th>
+              <th>Observed On-Chain Reality</th>
+              <th>Verdict</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Rule 1: Fixed Spend</strong></td>
+              <td>Each buy spends exactly 0.01 BNB</td>
+              <td>All 12 swaps transferred exactly 10,000,000,000,000,000 wei (0.01 BNB) to the V3 router</td>
+              <td><span class="badge badge-success">KEPT</span></td>
+            </tr>
+            <tr>
+              <td><strong>Rule 2: Buy-Only Direction</strong></td>
+              <td>Only buys FLAPJAX (transfers FLAPJAX from pool to treasury; zero sales back to pool)</td>
+              <td>All 12 transaction logs record pure incoming Transfer(pool -> treasury) for FLAPJAX. 0 reverse swaps executed.</td>
+              <td><span class="badge badge-success">KEPT</span></td>
+            </tr>
+            <tr>
+              <td><strong>Rule 3: Daily Execution Cadence</strong></td>
+              <td>At most one buy per program day counted in COT (UTC-5)</td>
+              <td>Exactly 1 buy executed per COT calendar day across 12 days. Zero double-buys detected in any 24h COT window. 10-15 COT was skipped.</td>
+              <td><span class="badge badge-success">KEPT</span></td>
+            </tr>
+            <tr>
+              <td><strong>Rule 4: Treasury Floor Reserve</strong></td>
+              <td>Skipped if it would leave the treasury under 0.025 BNB</td>
+              <td>Lowest observed treasury balance after a buy was 0.036158610 BNB at block 128946201 (10-21), comfortably above the 0.025 BNB floor reserve.</td>
+              <td><span class="badge badge-success">KEPT</span></td>
+            </tr>
+            <tr>
+              <td><strong>Rule 5: Reverse Liquidity Dump Check</strong></td>
+              <td>Treasury never sold FLAPJAX back into the pool</td>
+              <td>Chain logs confirm 0 FLAPJAX sales or reverse swaps by the treasury across the entire observation window.</td>
+              <td><span class="badge badge-success">KEPT</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Section 5 -->
+    <section>
+      <h2>5. Non-Buyback Outflows & Unclassified Activity Isolation</h2>
+      <p>
+        To ensure strict forensic integrity, all 24 other positive-value native BNB transactions from the treasury across nonces 29 through 357 were audited and confirmed to be non-swap interactions:
+      </p>
+      <ul>
+        <li><strong>Escrow Bridge Transfers (LI.FI Diamond <code>0x1231deb6f5749ef6ce6943a275a1d3e7486f4eae</code>):</strong> 5 bridge transactions executed between 10-13 and 10-19.</li>
+        <li><strong>Community Gas Grants:</strong> Minor 0.0005 BNB gas subsidies to developer EOAs (@cairnworks, @kael).</li>
+        <li><strong>External Helper Transfer (Nonce 76):</strong> 0.0020 BNB sent to <code>0x9486b3304caca38ef42148ec8618925f15b3759e</code> on 10-12 (Unclassified helper transfer).</li>
+        <li><strong>Internal Treasury Operator Transfers (Nonce 277 & Nonce 335):</strong> Transfers to operator wallet <code>0x9f4c35a8c966d5a48e5c81a0dd9a5b1b4e5a55a5</code> (0.004 BNB and 0.060 BNB).</li>
+      </ul>
+      <p><em>None of these other transfers interacted with the PancakeSwap pool or affected the 12 verified buyback swaps.</em></p>
+    </section>
+
+    <footer>
+      <p>ArcFlow Sentinel Autonomous Forensic Auditor &middot; Public On-Chain Ledger Audit &middot; Verified via BSC Node RPC</p>
+      <p style="margin-top: 0.25rem;">Bound BSC Recipient: <code>0xB16989670e568eF9D1b1bB364d3803Df41DD0a3e</code> &middot; Handle: <code>@VincentSai</code></p>
+    </footer>
+  </div>
+</body>
+</html>
