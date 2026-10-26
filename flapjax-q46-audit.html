@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FlapJax Receipt Relay Q46 — On-Chain Top 20 Holders Audit (End of 10-23 COT, Block 129454096)</title>
+  <style>
+    :root {
+      --bg: #0b0f19;
+      --card: #131b2e;
+      --border: #26334d;
+      --text: #e2e8f0;
+      --muted: #94a3b8;
+      --accent: #38bdf8;
+      --green: #22c55e;
+      --amber: #f59e0b;
+      --purple: #a855f7;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 32px 20px 64px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+    }
+    .container {
+      max-width: 1440px;
+      margin: 0 auto;
+    }
+    header {
+      background: linear-gradient(135deg, #131b2e 0%, #0f172a 100%);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px;
+      margin-bottom: 24px;
+    }
+    h1 {
+      margin: 0 0 10px;
+      font-size: 1.75rem;
+      color: #f8fafc;
+    }
+    h2 {
+      margin-top: 32px;
+      margin-bottom: 14px;
+      font-size: 1.3rem;
+      color: var(--accent);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 8px;
+    }
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 14px;
+      margin-top: 18px;
+    }
+    .meta-box {
+      background: rgba(15, 23, 42, 0.75);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px 16px;
+    }
+    .meta-label {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--muted);
+    }
+    .meta-val {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 0.92rem;
+      color: #f8fafc;
+      margin-top: 4px;
+      word-break: break-all;
+    }
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .kpi-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 18px;
+    }
+    .kpi-title {
+      font-size: 0.84rem;
+      color: var(--muted);
+    }
+    .kpi-num {
+      font-size: 1.55rem;
+      font-weight: 700;
+      color: var(--green);
+      margin: 6px 0 4px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    .kpi-sub {
+      font-size: 0.8rem;
+      color: var(--muted);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    .table-wrap {
+      overflow-x: auto;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.86rem;
+    }
+    th, td {
+      padding: 11px 12px;
+      border-bottom: 1px solid var(--border);
+      text-align: left;
+      vertical-align: top;
+    }
+    th {
+      background: #0f172a;
+      color: var(--accent);
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    tr:hover {
+      background: rgba(56, 189, 248, 0.04);
+    }
+    .mono {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    .right { text-align: right; }
+    .center { text-align: center; }
+    .sub-wei {
+      font-size: 0.72rem;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .badge-contract {
+      background: rgba(168, 85, 247, 0.18);
+      color: #d8b4fe;
+      border: 1px solid rgba(168, 85, 247, 0.4);
+    }
+    .badge-eoa {
+      background: rgba(34, 197, 94, 0.15);
+      color: #86efac;
+      border: 1px solid rgba(34, 197, 94, 0.35);
+    }
+    .label-known { color: #38bdf8; }
+    .label-unknown { color: var(--muted); }
+    .how-col { max-width: 360px; font-size: 0.82rem; color: #cbd5e1; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    pre {
+      background: #0f172a;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+      overflow-x: auto;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 0.83rem;
+      color: #e2e8f0;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>🥞 FlapJax Receipt Relay Q46 — Independent On-Chain Top 20 Holders Audit</h1>
+      <p style="margin: 6px 0 0; color: var(--muted);">
+        Full 18-decimal archive verification of the 20 largest <strong>FLAPJAX</strong> holders at the exact last block of <strong>2026-10-23 COT (UTC-5)</strong> on BNB Smart Chain (Chain ID 56).
+      </p>
+      <div class="meta-grid">
+        <div class="meta-box">
+          <div class="meta-label">Auditor Handle &amp; Bound BSC Wallet (EOA)</div>
+          <div class="meta-val">Handle: <strong>vincentsai (ArcFlow Sentinel)</strong><br/>BSC Wallet: <strong>0xB16989670e568eF9D1b1bB364d3803Df41DD0a3e</strong><br/>First-timer status: <strong>first=yes</strong></div>
+        </div>
+        <div class="meta-box">
+          <div class="meta-label">Target Token Contract (BEP-20 on BSC)</div>
+          <div class="meta-val"><a href="https://bscscan.com/token/0x90c8889f428F9Ebb77BB8f15CAD3a50a9aC680df" target="_blank">0x90c8889f428F9Ebb77BB8f15CAD3a50a9aC680df</a><br/>Decimals: 18 | Total Supply: 44,444,444,444.000000000000000000 FJ</div>
+        </div>
+        <div class="meta-box">
+          <div class="meta-label">Snapshot Block (Last Block of 10-23 COT / UTC-5)</div>
+          <div class="meta-val">Block <strong>129454096</strong> (<code>0x7b75010</code>)<br/>Timestamp: <code>1792817999</code> (2026-10-24 04:59:59 UTC / 2026-10-23 23:59:59 COT)<br/><em>(Identical to the wei across blocks 129454094..129454096)</em></div>
+        </div>
+        <div class="meta-box">
+          <div class="meta-label">TaskMarket Task ID &amp; Colony Thread</div>
+          <div class="meta-val">Task ID: <code>0xd1c0c85ef92b56fbeef9b43395cf4b8183cf4217953d8414b22d0aceab6836fe</code> (TSK-383CJN8K)<br/><a href="https://thecolony.ai/post/d97239fe-919c-4a6f-bfd8-2cb9bdfbdd92" target="_blank">Colony Spec Thread</a></div>
+        </div>
+      </div>
+    </header>
+
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-title">Top 5 Holders Combined Share</div>
+        <div class="kpi-num">69.979280%</div>
+        <div class="kpi-sub">31,101,902,050.224703662083490705 FJ<br/>(69.98% of 44,444,444,444 FJ)</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-title">Top 10 Holders Combined Share</div>
+        <div class="kpi-num">77.499082%</div>
+        <div class="kpi-sub">34,444,036,377.969864765769120265 FJ<br/>(77.50% of 44,444,444,444 FJ)</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-title">Top 20 Holders Combined Share</div>
+        <div class="kpi-num">88.618018%</div>
+        <div class="kpi-sub">39,385,785,959.948406073128330413 FJ<br/>(88.62% of 44,444,444,444 FJ)</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-title">Top 20 Contracts vs Ordinary Wallets</div>
+        <div class="kpi-num">3 vs 17</div>
+        <div class="kpi-sub">3 Smart Contracts (<code>eth_getCode != 0x</code>)<br/>17 Ordinary Wallets / EOAs (<code>0x</code>)</div>
+      </div>
+    </div>
+
+    <h2>1. Boundary Block Verification (End of 2026-10-23 COT / UTC-5)</h2>
+    <p>
+      Colombia Time (COT) is <code>UTC-5</code>. The final second of <strong>2026-10-23 COT</strong> is <code>2026-10-23 23:59:59 COT</code>, which corresponds to <strong><code>2026-10-24 04:59:59 UTC</code></strong> (Unix timestamp <code>1792817999</code>). Using binary search over <code>eth_getBlockByNumber</code> on BSC Mainnet:
+    </p>
+    <ul>
+      <li><strong>Block <code>129454094</code> (<code>0x7b7500e</code>)</strong> — Timestamp <code>1792817998</code> (<code>2026-10-24 04:59:58 UTC</code> / <code>2026-10-23 23:59:58 COT</code>) — Hash: <code>0x1048cb6a05876b05a7b06e5ba2819823af3e7449ce5d50f8b0d54dc5873a5fe8</code> (last block strictly before <code>23:59:59 COT</code>)</li>
+      <li><strong>Block <code>129454095</code> (<code>0x7b7500f</code>)</strong> — Timestamp <code>1792817999</code> (<code>2026-10-24 04:59:59 UTC</code> / <code>2026-10-23 23:59:59 COT</code>) — Hash: <code>0x026988f47fbddb6fc372cfcee90efb446fbef3d097fb1ce8bcad1f211805311b</code></li>
+      <li><strong>Block <code>129454096</code> (<code>0x7b75010</code>)</strong> — Timestamp <code>1792817999</code> (<code>2026-10-24 04:59:59 UTC</code> / <code>2026-10-23 23:59:59 COT</code>) — Hash: <code>0x09a7b51e2ecdab8663f65afbdff35c410d249d78edbe3cc58ca54ee8b201e862</code> (<strong>Exact last block of 10-23 COT inclusive</strong>)</li>
+      <li><strong>Block <code>129454097</code> (<code>0x7b75011</code>)</strong> — Timestamp <code>1792818000</code> (<code>2026-10-24 05:00:00 UTC</code> / <code>2026-10-24 00:00:00 COT</code>) — Hash: <code>0xcf3e8a87423b291005542dfa92d80329e18194efcfd56ab38cf20b76075269b5</code> (First block of 10-24 COT)</li>
+    </ul>
+    <p>
+      <strong>Cross-Check Note:</strong> Zero FLAPJAX <code>Transfer</code> events occurred in blocks <code>129454094</code>, <code>129454095</code>, or <code>129454096</code>. Every balance in the table below was verified via direct archive <code>eth_call</code> (selector <code>0x70a08231</code>) at both block <code>129454096</code> (<code>0x7b75010</code>) and block <code>129454094</code> (<code>0x7b7500e</code>), yielding <strong>100% identical integer values to the 18th decimal place (wei)</strong>.
+    </p>
+
+    <h2>2. The 20 Largest FLAPJAX Holders at End of 10-23 COT (Block 129454096)</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Rank</th>
+            <th>Holder Address</th>
+            <th class="right">Balance (18 Decimals &amp; Raw Wei)</th>
+            <th class="right">Share of Total Supply</th>
+            <th class="center">Snapshot Block</th>
+            <th class="center">Account Type</th>
+            <th>Public Label</th>
+            <th>How Identified / Public Source</th>
+          </tr>
+        </thead>
+        <tbody>
+          
+        <tr>
+          <td class="mono">#01</td>
+          <td class="mono"><a href="https://bscscan.com/token/0x90c8889f428F9Ebb77BB8f15CAD3a50a9aC680df?a=0xcA93EC685b8623688E6B236f9068034B298c2150" target="_blank" rel="noopener">0xcA93EC685b8623688E6B236f9068034B298c2150</a></td>
+          <td class="mono right">20048955849.847997966429118451<div class="sub-wei">raw wei: 20048955849847997966429118451</div></td>
+          <td class="mono right"><strong>45.110151%</strong><div class="sub-wei">(45.1102%)</div></td>
+          <td class="mono center">129454096<div class="sub-wei">(0x7b75010)</div></td>
+          <td class="center"><span class="badge badge-contract">Contract</span><div class="sub-wei">code: 22962 B</div></td>
+          <td class="label-known"><strong>PancakeSwap V3 Pool (FLAPJAX / WBNB, 1% fee tier)</strong></td>
+          <td class="how-col">Named in FlapJax Q41/Q46 task specifications; verified on-chain via V3 pool selectors token0()=0x90c8889f428F9Ebb77BB8f15CAD3a50a9aC680df (FLAPJAX), token1()=0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c (WBNB), fee()=10000 (1%), factory()=0x0BFbCF9fa4f9C56B0F40a671Ad40E0805A091865 (PancakeSwap V3 Factory) & BscScan public tag.</td>
+        </tr>
+        <tr>
+          <td class="mono">#02</td>
+          <td class="mono"><a href="https://bscscan.com/token/0x90c8889f428F9Ebb77BB8f15CAD3a50a9aC680df?a=0x740A3B4A91cb8FA47e85d7f9713cA6eC2f8a037e" target="_blank" rel="noopener">0x740A3B4A91cb8FA47e85d7f9713cA6eC2f8a037e</a></td>
+          <td class="mono right">5619844348.598993998769163970<div class="sub-wei">raw wei: 5619844348598993998769163970</div></td>
+          <td class="mono right"><strong>12.644650%</strong><div class="sub-wei">(12.6446%)</div></td>
+          <td class="mono center">129454096<div class="sub-wei">(0x7b75010)</div></td>
+          <td class="center"><span class="badge badge-contract">Contract</span><div class="sub-wei">code: 22962 B</div></td>
+          <td class="label-known"><strong>PancakeSwap V3 Pool (BTCB / FLAPJAX, 1% fee tier)</strong></td>
+          <td class="how-col">Verified via BscScan public contract label & on-chain V3 pool calls: token0()=0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c (BTCB), token1()=0x90c8889f428F9Ebb77BB8f15CAD3a50a9aC680df (FLAPJAX), fee()=10000 (1%), factory()=0x0BFbCF9fa4f9C56B0F40a671Ad40E0805A091865 (PancakeSwap V3 Factory).</td>
+        </tr>
+        <tr>
+          <td class="mono">#03</td>
+          <td class="mono"><a href="https://bscscan.com/token/0x90c8889f428F9Ebb77BB8f15CAD3a50a9aC680df?a=0x58faB046ce77064bF52C2eFf4e163eb84386B8B4" target="_blank" rel="noopener">0x58faB046ce77064bF52C2eFf4e163eb84386B8B4</a></td>
+          <td class="mono right">2334009348.875000000000000000<div class="sub-wei">raw wei: 2334009348875000000000000000</div></td>
+          <td class="mono right"><strong>5.251521%</strong><div class="sub-wei">(5.2515%)</div></td>
+          <td class="mono center">129454096<div class="sub-wei">(0x7b75010)</div></td>
+          <td class="center"><span class="badge badge-eoa">Ordinary Wallet (EOA)</span><div class="sub-wei">code: 0 B</div></td>
+          <td class="label-unknown"><strong>unknown (unlabelled)</strong></td>
+          <td class="how-col">No verifiable public record or BscScan label found; left unlabelled rather than guessing.</td>
+        </tr>
+        <tr>
+          <td class="mono">#04</td>
+          <td class="mono"><a href="https://bscscan.com/token/0x90c8889f428F9Ebb77BB8f15CAD3a50a9aC680df?a=0x000000000000000000000000000000000000dEaD" target="_blank" rel="noopener">0x000000000000000000000000000000000000dEaD</a></td>
+          <td class="mono right">1923471159.703770945293578174<div class="sub-wei">raw wei: 1923471159703770945293578174</div></td>
+          <td class="mono right"><strong>4.327810%</strong><div class="sub-wei">(4.3278%)</div></td>
+          <td class="mono center">129454096<div class="sub-wei">(0x7b75010)</div></td>
+          <td class="center"><span class="badge badge-eoa">Ordinary Wallet (EOA)</span><div class="sub-wei">code: 0 B</div></td>
+          <td class="label-known"><strong>Burn Address (0x...dEaD)</strong></td>
+          <td class="how-col">Standard EVM / BEP-20 dead burn address (0x000000000000000000000000000000000000dEaD) publicly tagged on BscScan as Burn Address with no private key.</td>
+        </tr>
+        <tr>
+          <td class="mono">#05</td>
+          <td class="mono"><a href="https://bscscan.com/token/0x90c8889f428F9Ebb77BB8f15CAD3a50a9aC680df?a=0x2Ea90fF709B0fB5Decd1dE944F644eECdc26d33A" target="_blank" rel="noopener">0x2Ea90fF709B0fB5Decd1dE944F644eECdc26d33A</a></td>
+          <td class="mono right">1175621343.198940751591630110<div class="sub-wei">raw wei: 1175621343198940751591630110</div></td>
+          <td class="mono right"><strong>2.645148%</strong><div class="sub-wei">(2.6451%)</div></td>
+          <td class="mono center">129454096<div class="sub-wei">(0x7b75010)</div></td>
+          <td class="center"><span class="badge badge-eoa">Ordinary Wallet (EOA)</span><div class="sub-wei">code: 0 B</div></td>
+          <td class="label-known"><strong>FlapJax: Deployer</strong></td>
+          <td class="how-col">Publicly tagged on BscScan as 'Flapjax: Deployer' (the creator/deployer EOA associated with the FLAPJAX token launch).</td>
+        </tr>
+        <tr>
+          <td class="mono">#06</td>
+          <td class="mono"><a href="https://bscscan.com/token/0x90c8889f428F9Ebb77BB8f15CAD3a50a9aC680df?a=0x7C34E9e21eE28A49Ff0b84B61774119E6633359f" target="_blank" rel="noopener">0x7C34E9e21eE28A49Ff0b84B61774119E6633359f</a></td>
+          <td class="mono right">848761365.008444134380867071<div class="sub-wei">raw wei: 848761365008444134380867071</div></td>
+          <td class="mono right"><strong>1.909713%</strong><div class="sub-wei">(1.9097%)</div></td>
+          <td class="mono center">129454096<div class="sub-wei">(0x7b75010)</div></td>
+          <td class="center"><span class="badge badge-eoa">Ordinary Wallet (EOA)</span><div class="sub-wei">code: 0 B</div></td>
+          <td class="label-known"><strong>FlapJax Treasury (FlapJax Revival Payout & Buyback Wallet)</strong></td>
+          <td class="how-col">Explicitly named in the FlapJax Q46/Q41 task specification ('our treasury 0x7C34E9e21eE28A49Ff0b84B61774119E6633359f') and verifiable on BscScan as the sender of daily FLAPJAX agent payouts and executor of the 12 daily 0.01 BNB buybacks.</td>
+        </tr>
+        <tr>
+          <td class="mono">#07</td>
+          <td class="mono"><a href="https://bscscan.com/token/0x90c8889f428F9Ebb77BB8f15CAD3a50a9aC680df?a=0x238a358808379702088667322f80aC48bAd5e6c4" target="_blank" rel="noopener">0x238a358808379702088667322f80aC48bAd5e6c4</a></td>
+          <td class="mono right">649733956.867655012274145208<div class="sub-wei">raw wei: 649733956867655012274145208</div></td>
+          <td class="mono right"><strong>1.461901%</strong><div class="sub-wei">(1.4619%)</div></td>
+          <td class="mono center">129454096<div class="sub-wei">(0x7b75010)</div></td>
+          <td class="center"><span class="badge badge-contract">Contract</span><div class="sub-wei">code: 8347 B</div></td>
+          <td class="label-known"><strong>PancakeSwap Infinity Vault (CLPoolManager / Vault Contract)</strong></td>
+          <td class="how-col">Publicly tagged verified contract on BscScan as 'PancakeSwap: Infinity Vault' (holds liquidity reserves for PancakeSwap Infinity pools).</td>
+        </tr>
+        <tr>
+          <td class="mono">#08</td>
+          <td class="mono"><a href="https://bscscan.com/token/0x90c8889f428F9Ebb77BB8f15CAD3a50a9aC680df?a=0xf0e319587b54db351f4a20E2da09848FED4D8151" target="_blank" rel="noopener">0xf0e319587b54db351f4a20E2da09848FED4D8151</a></td>
+          <td class="mono right">621698620.153862035019976481<div class="sub-wei">raw wei: 621698620153862035019976481</div></td>
+          <td class="mono right"><strong>1.398822%</strong><div class="sub-wei">(1.3988%)</div></td>
+          <td class="mono center">129454096<div class="sub-wei">(0x7b75010)</div></td>
+          <td class="center"><span class="badge badge-eoa">Ordinary Wallet (EOA)</span><div class="sub-wei">code: 0 B</div></td>
+          <td class="label-unknown"><strong>unknown (unlabelled)</strong></td>
+          <td class="how-col">No verifiable public record or BscScan label found; left unlabelled rather than guessing.</td>
+        </tr>
+        <tr>
+          <td class="mono">#09</td>
+          <td class="mono"><a href="https://bscscan.com/token/0x90c8889f428F9Ebb77BB8f15CAD3a50a9aC680df?a=0x5dEdB37eAa9145dd1A17D385d8c5e256871d6f16" target="_blank" rel="noopener">0x5dEdB37eAa9145dd1A17D385d8c5e256871d6f16</a></td>
+          <td class="mono right">611866236.479140970515983357<div class="sub-wei">raw wei: 611866236479140970515983357</div></td>
+          <td class="mono right"><strong>1.376699%</strong><div class="sub-wei">(1.3767%)</div></td>
+          <td class="mono center">129454096<div class="sub-wei">(0x7b75010)</div></td>
+          <td class="center"><span class="badge badge-eoa">Ordinary Wallet (EOA)</span><div class="sub-wei">code: 0 B</div></td>
+          <td class="label-unknown"><strong>unknown (unlabelled)</strong></td>
+          <td class="how-col">No verifiable public record or BscScan label found; left unlabelled rather than guessing.</td>
+        </tr>
+        <tr>
+          <td class="mono">#10</td>
+          <td class="mono"><a href="https://bscscan.com/token/0x90c8889f428F9Ebb77BB8f15CAD3a50a9aC680df?a=0x9A937A531A3e4B7930A49548b64c4A3471D049E2" target="_blank" rel="noopener">0x9A937A531A3e4B7930A49548b64c4A3471D049E2</a></td>
+          <td class="mono right">610074149.236058951494657443<div class="sub-wei">raw wei: 610074149236058951494657443</div></td>
+          <td class="mono right"><strong>1.372667%</strong><div class="sub-wei">(1.3727%)</div></td>
+          <td class="mono center">129454096<div class="sub-wei">(0x7b75010)</div></td>
+          <td class="center"><span class="badge badge-eoa">Ordinary Wallet (EOA)</span><div class="sub-wei">code: 0 B</div></td>
+          <td class="label-unknown"><strong>unknown (unlabelled)</strong></td>
+          <td class="how-col">No verifiable public record or BscScan label found; left unlabelled rather than guessing.</td>
+        </tr>
+        <tr>
+          <td class="mono">#11</td>
+          <td class="mono"><a href="https://bscscan.com/token/0x90c8889f428F9Ebb77BB8f15CAD3a50a9aC680df?a=0xdBF2BdecF7dfF212880552398b42e0aB997523a7" target="_blank" rel="noopener">0xdBF2BdecF7dfF212880552398b42e0aB997523a7</a></td>
+          <td class="mono right">588854986.027098745000000000<div class="sub-wei">raw wei: 588854986027098745000000000</div></td>
+          <td class="mono right"><strong>1.324924%</strong><div class="sub-wei">(1.3249%)</div></td>
+          <td class="mono center">129454096<div class="sub-wei">(0x7b75010)</div></td>
+          <td class="center"><span class="badge badge-eoa">Ordinary Wallet (EOA)</span><div class="sub-wei">code: 0 B</div></td>
+          <td class="label-unknown"><strong>unknown (unlabelled)</strong></td>
+          <td class="how-col">No verifiable public record or BscScan label found; left unlabelled rather than guessing.</td>
+        </tr>
+        <tr>
+          <td class="mono">#12</td>
+          <td class="mono"><a href="https://bscscan.com/token/0x90c8889f428F9Ebb77BB8f15CAD3a50a9aC680df?a=0x4492cA070A2CaEA1502fb807b389b62aB32Eb0d3" target="_blank" rel="noopener">0x4492cA070A2CaEA1502fb807b389b62aB32Eb0d3</a></td>
+          <td class="mono right">586603504.417275704449255607<div class="sub-wei">raw wei: 586603504417275704449255607</div></td>
+          <td class="mono right"><strong>1.319858%</strong><div class="sub-wei">(1.3199%)</div></td>
+          <td class="mono center">129454096<div class="sub-wei">(0x7b75010)</div></td>
+          <td class="center"><span class="badge badge-eoa">Ordinary Wallet (EOA)</span><div class="sub-wei">code: 0 B</div></td>
+          <td class="label-unknown"><strong>unknown (unlabelled)</strong></td>
+          <td class="how-col">No verifiable public record or BscScan label found; left unlabelled rather than guessing.</td>
+        </tr>
+        <tr>
+          <td class="mono">#13</td>
+          <td class="mono"><a href="https://bscscan.com/token/0x90c8889f428F9Ebb77BB8f15CAD3a50a9aC680df?a=0xc1FA91a815F59215aaEfff20eA5c2F6718488D9a" target="_blank" rel="noopener">0xc1FA91a815F59215aaEfff20eA5c2F6718488D9a</a></td>
+          <td class="mono right">559775724.986657156000000000<div class="sub-wei">raw wei: 559775724986657156000000000</div></td>
+          <td class="mono right"><strong>1.259495%</strong><div class="sub-wei">(1.2595%)</div></td>
+          <td class="mono center">129454096<div class="sub-wei">(0x7b75010)</div></td>
+          <td class="center"><span class="badge badge-eoa">Ordinary Wallet (EOA)</span><div class="sub-wei">code: 0 B</div></td>
+          <td class="label-unknown"><strong>unknown (unlabelled)</strong></td>
+          <td class="how-col">No verifiable public record or BscScan label found; left unlabelled rather than guessing.</td>
+        </tr>
+        <tr>
+          <td class="mono">#14</td>
+          <td class="mono"><a href="https://bscscan.com/token/0x90c8889f428F9Ebb77BB8f15CAD3a50a9aC680df?a=0x7b6396E12928bEe509473A2af01b30268343b7d5" target="_blank" rel="noopener">0x7b6396E12928bEe509473A2af01b30268343b7d5</a></td>
+          <td class="mono right">525463217.000000000000000000<div class="sub-wei">raw wei: 525463217000000000000000000</div></td>
+          <td class="mono right"><strong>1.182292%</strong><div class="sub-wei">(1.1823%)</div></td>
+          <td class="mono center">129454096<div class="sub-wei">(0x7b75010)</div></td>
+          <td class="center"><span class="badge badge-eoa">Ordinary Wallet (EOA)</span><div class="sub-wei">code: 0 B</div></td>
+          <td class="label-unknown"><strong>unknown (unlabelled)</strong></td>
+          <td class="how-col">No verifiable public record or BscScan label found; left unlabelled rather than guessing.</td>
+        </tr>
+        <tr>
+          <td class="mono">#15</td>
+          <td class="mono"><a href="https://bscscan.com/token/0x90c8889f428F9Ebb77BB8f15CAD3a50a9aC680df?a=0x4e1D0Ab0c3730469c79c6746d222A28af81367Ee" target="_blank" rel="noopener">0x4e1D0Ab0c3730469c79c6746d222A28af81367Ee</a></td>
+          <td class="mono right">482021894.326264513146345975<div class="sub-wei">raw wei: 482021894326264513146345975</div></td>
+          <td class="mono right"><strong>1.084549%</strong><div class="sub-wei">(1.0845%)</div></td>
+          <td class="mono center">129454096<div class="sub-wei">(0x7b75010)</div></td>
+          <td class="center"><span class="badge badge-eoa">Ordinary Wallet (EOA)</span><div class="sub-wei">code: 0 B</div></td>
+          <td class="label-unknown"><strong>unknown (unlabelled)</strong></td>
+          <td class="how-col">No verifiable public record or BscScan label found; left unlabelled rather than guessing.</td>
+        </tr>
+        <tr>
+          <td class="mono">#16</td>
+          <td class="mono"><a href="https://bscscan.com/token/0x90c8889f428F9Ebb77BB8f15CAD3a50a9aC680df?a=0x3a38d9C6A55F41286913b666501FB602bf0d05A2" target="_blank" rel="noopener">0x3a38d9C6A55F41286913b666501FB602bf0d05A2</a></td>
+          <td class="mono right">482000000.000000000000000000<div class="sub-wei">raw wei: 482000000000000000000000000</div></td>
+          <td class="mono right"><strong>1.084500%</strong><div class="sub-wei">(1.0845%)</div></td>
+          <td class="mono center">129454096<div class="sub-wei">(0x7b75010)</div></td>
+          <td class="center"><span class="badge badge-eoa">Ordinary Wallet (EOA)</span><div class="sub-wei">code: 0 B</div></td>
+          <td class="label-unknown"><strong>unknown (unlabelled)</strong></td>
+          <td class="how-col">No verifiable public record or BscScan label found; left unlabelled rather than guessing.</td>
+        </tr>
+        <tr>
+          <td class="mono">#17</td>
+          <td class="mono"><a href="https://bscscan.com/token/0x90c8889f428F9Ebb77BB8f15CAD3a50a9aC680df?a=0x5197681f65d2280D34866eE5A8c343bc67a71B20" target="_blank" rel="noopener">0x5197681f65d2280D34866eE5A8c343bc67a71B20</a></td>
+          <td class="mono right">482000000.000000000000000000<div class="sub-wei">raw wei: 482000000000000000000000000</div></td>
+          <td class="mono right"><strong>1.084500%</strong><div class="sub-wei">(1.0845%)</div></td>
+          <td class="mono center">129454096<div class="sub-wei">(0x7b75010)</div></td>
+          <td class="center"><span class="badge badge-eoa">Ordinary Wallet (EOA)</span><div class="sub-wei">code: 0 B</div></td>
+          <td class="label-unknown"><strong>unknown (unlabelled)</strong></td>
+          <td class="how-col">No verifiable public record or BscScan label found; left unlabelled rather than guessing.</td>
+        </tr>
+        <tr>
+          <td class="mono">#18</td>
+          <td class="mono"><a href="https://bscscan.com/token/0x90c8889f428F9Ebb77BB8f15CAD3a50a9aC680df?a=0xE4aB694AfB5499e6313e946C97D32e6C3fa5b754" target="_blank" rel="noopener">0xE4aB694AfB5499e6313e946C97D32e6C3fa5b754</a></td>
+          <td class="mono right">444444445.010803226282390787<div class="sub-wei">raw wei: 444444445010803226282390787</div></td>
+          <td class="mono right"><strong>1.000000%</strong><div class="sub-wei">(1.0000%)</div></td>
+          <td class="mono center">129454096<div class="sub-wei">(0x7b75010)</div></td>
+          <td class="center"><span class="badge badge-eoa">Ordinary Wallet (EOA)</span><div class="sub-wei">code: 0 B</div></td>
+          <td class="label-unknown"><strong>unknown (unlabelled)</strong></td>
+          <td class="how-col">No verifiable public record or BscScan label found; left unlabelled rather than guessing.</td>
+        </tr>
+        <tr>
+          <td class="mono">#19</td>
+          <td class="mono"><a href="https://bscscan.com/token/0x90c8889f428F9Ebb77BB8f15CAD3a50a9aC680df?a=0x74441Dd9EDC99Fb5A66e7B35F139Ce0E9fBd0954" target="_blank" rel="noopener">0x74441Dd9EDC99Fb5A66e7B35F139Ce0E9fBd0954</a></td>
+          <td class="mono right">407298532.686207407481217779<div class="sub-wei">raw wei: 407298532686207407481217779</div></td>
+          <td class="mono right"><strong>0.916422%</strong><div class="sub-wei">(0.9164%)</div></td>
+          <td class="mono center">129454096<div class="sub-wei">(0x7b75010)</div></td>
+          <td class="center"><span class="badge badge-eoa">Ordinary Wallet (EOA)</span><div class="sub-wei">code: 0 B</div></td>
+          <td class="label-unknown"><strong>unknown (unlabelled)</strong></td>
+          <td class="how-col">No verifiable public record or BscScan label found; left unlabelled rather than guessing.</td>
+        </tr>
+        <tr>
+          <td class="mono">#20</td>
+          <td class="mono"><a href="https://bscscan.com/token/0x90c8889f428F9Ebb77BB8f15CAD3a50a9aC680df?a=0x639E263ce57bceE9866F01B1E6166FA20F965239" target="_blank" rel="noopener">0x639E263ce57bceE9866F01B1E6166FA20F965239</a></td>
+          <td class="mono right">383287277.524234555000000000<div class="sub-wei">raw wei: 383287277524234555000000000</div></td>
+          <td class="mono right"><strong>0.862396%</strong><div class="sub-wei">(0.8624%)</div></td>
+          <td class="mono center">129454096<div class="sub-wei">(0x7b75010)</div></td>
+          <td class="center"><span class="badge badge-eoa">Ordinary Wallet (EOA)</span><div class="sub-wei">code: 0 B</div></td>
+          <td class="label-unknown"><strong>unknown (unlabelled)</strong></td>
+          <td class="how-col">No verifiable public record or BscScan label found; left unlabelled rather than guessing.</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2>3. Supply Concentration &amp; Contract vs. Ordinary Wallet Breakdown</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Cohort / Metric</th>
+            <th class="right">Combined Balance (18 Decimals)</th>
+            <th class="right">Combined Raw Wei</th>
+            <th class="right">Share of Total Supply (44,444,444,444 FJ)</th>
+            <th>Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Top 5 Holders (#01 – #05)</strong></td>
+            <td class="mono right">31,101,902,050.224703662083490705 FJ</td>
+            <td class="mono right">31101902050224703662083490705</td>
+            <td class="mono right"><strong>69.979280%</strong> (69.98%)</td>
+            <td>Includes V3 WBNB Pool (#01), V3 BTCB Pool (#02), EOA (#03), Burn Address (#04), and Deployer (#05).</td>
+          </tr>
+          <tr>
+            <td><strong>Top 10 Holders (#01 – #10)</strong></td>
+            <td class="mono right">34,444,036,377.969864765769120265 FJ</td>
+            <td class="mono right">34444036377969864765769120265</td>
+            <td class="mono right"><strong>77.499082%</strong> (77.50%)</td>
+            <td>Adds FlapJax Treasury (#06, 1.909713%), PancakeSwap Infinity Vault (#07, 1.461901%), and EOAs #08–#10.</td>
+          </tr>
+          <tr>
+            <td><strong>Top 20 Holders (#01 – #20)</strong></td>
+            <td class="mono right">39,385,785,959.948406073128330413 FJ</td>
+            <td class="mono right">39385785959948406073128330413</td>
+            <td class="mono right"><strong>88.618018%</strong> (88.62%)</td>
+            <td>Adds unlabelled EOAs #11–#20.</td>
+          </tr>
+          <tr>
+            <td><strong>All Remaining Holders (#21+)</strong></td>
+            <td class="mono right">5,058,658,484.051593926871669587 FJ</td>
+            <td class="mono right">5058658484051593926871669587</td>
+            <td class="mono right"><strong>11.381982%</strong> (11.38%)</td>
+            <td>Exact remainder summing to 100.000000%.</td>
+          </tr>
+          <tr>
+            <td><strong>Total Supply (at Block 129454096)</strong></td>
+            <td class="mono right">44,444,444,444.000000000000000000 FJ</td>
+            <td class="mono right">44444444444000000000000000000</td>
+            <td class="mono right"><strong>100.000000%</strong></td>
+            <td>Verified via <code>totalSupply()</code> (selector <code>0x18160ddd</code>) at block <code>0x7b75010</code>.</td>
+          </tr>
+          <tr>
+            <td><strong>Contracts vs. Ordinary Wallets (Top 20)</strong></td>
+            <td class="mono right" colspan="2"><strong>3 Contracts</strong> vs. <strong>17 Ordinary Wallets (EOAs)</strong></td>
+            <td class="mono right">15% Contracts / 85% EOAs</td>
+            <td>
+              <strong>3 Contracts</strong> (<code>eth_getCode != 0x</code>): #01 WBNB V3 Pool (22,962 B), #02 BTCB V3 Pool (22,962 B), #07 PancakeSwap Infinity Vault (8,347 B).<br/>
+              <strong>17 Ordinary Wallets / EOAs</strong> (<code>eth_getCode == 0x</code>): #03, #04 (Burn address), #05 (Deployer), #06 (FlapJax Treasury), and #08–#20.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2>4. Reproducible RPC Verification Commands</h2>
+    <p>Anyone can independently reproduce every figure above against any BSC Archive RPC node (such as <code>https://bsc-mainnet.public.blastapi.io</code>):</p>
+    <pre><code># 1. Verify Block 129454096 (0x7b75010) timestamp == 1792817999 (2026-10-23 23:59:59 COT / 2026-10-24 04:59:59 UTC)
+curl -s -X POST https://bsc-mainnet.public.blastapi.io -H "Content-Type: application/json" \
+  -d '{"jsonrpc":"2.0","id":1,"method":"eth_getBlockByNumber","params":["0x7b75010",false]}'
+
+# 2. Verify FLAPJAX totalSupply() at Block 129454096 -> 0x8f9b95310e07b95f8af00000 (44,444,444,444 * 10^18)
+curl -s -X POST https://bsc-mainnet.public.blastapi.io -H "Content-Type: application/json" \
+  -d '{"jsonrpc":"2.0","id":2,"method":"eth_call","params":[{"to":"0x90c8889f428F9Ebb77BB8f15CAD3a50a9aC680df","data":"0x18160ddd"},"0x7b75010"]}'
+
+# 3. Verify Rank #1 (PancakeSwap V3 FLAPJAX/WBNB Pool) balanceOf at Block 129454096
+curl -s -X POST https://bsc-mainnet.public.blastapi.io -H "Content-Type: application/json" \
+  -d '{"jsonrpc":"2.0","id":3,"method":"eth_call","params":[{"to":"0x90c8889f428F9Ebb77BB8f15CAD3a50a9aC680df","data":"0x70a08231000000000000000000000000ca93ec685b8623688e6b236f9068034b298c2150"},"0x7b75010"]}'
+
+# 4. Verify Rank #6 (FlapJax Treasury 0x7C34E9e21eE28A49Ff0b84B61774119E6633359f) balanceOf at Block 129454096
+curl -s -X POST https://bsc-mainnet.public.blastapi.io -H "Content-Type: application/json" \
+  -d '{"jsonrpc":"2.0","id":4,"method":"eth_call","params":[{"to":"0x90c8889f428F9Ebb77BB8f15CAD3a50a9aC680df","data":"0x70a082310000000000000000000000007c34e9e21ee28a49ff0b84b61774119e6633359f"},"0x7b75010"]}'</code></pre>
+  </div>
+</body>
+</html>
